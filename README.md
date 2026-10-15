@@ -35,6 +35,12 @@ Each hypothesis is represented as a four-part **Hypothesis Card**:
 
 Candidate promotion uses fixed gates rather than language-model self-evaluation alone: minimum evidence coverage, a required novelty response when direct precursors are present, an executable direction, and a falsifier. The next route is recorded with its rationale, so a rejected or deferred idea remains inspectable rather than disappearing from the workflow.
 
+Before any computational run, the core can create a content-addressed **Research Artifact** for the evidence and hypothesis, then pre-register an **Experiment Plan** (baselines, primary metric, unique seeds, expected pattern and falsifier). An `ArtifactApproval` is bound to the exact plan hash. If the plan, evidence or hypothesis changes, `can_submit_experiment(...)` fails closed and requires a new approval.
+
+For a bounded research budget, `pareto_hypotheses(...)` performs deterministic multi-objective selection over candidates whose recorded review supplies evidence strength, novelty distance, falsifiability and estimated execution cost. The function returns only non-dominated candidates; it is a portfolio-selection primitive inspired by agentic tree-search systems, not a claim that model-generated scores are ground truth.
+
+Finally, a `ScientificClaim` cannot be released merely because an experiment returned a promising number. It must link exact, verified evidence, experiment and independent-replication artifacts, state limitations, and receive a separate hash-bound review approval through `can_release_claim(...)`.
+
 The first research application studies representation failure in AI-assisted science: whether abstraction can hide scientifically meaningful anomalies, and whether an AI system can recognize when its own representation is inadequate.
 
 ## Upstream integrations
@@ -46,6 +52,8 @@ This repository keeps its public core lightweight and does not vendor third-part
 - [The AI Scientist-v2](https://github.com/SakanaAI/AI-Scientist-v2) — cited as a research reference only. Its source license has additional distribution restrictions, so it is not vendored or made a dependency here.
 
 The local core exposes `discover_local_upstreams(root)` to make these optional checkouts visible without importing or executing them. This is deliberately a discovery boundary: activating either upstream remains an explicit, separately configured step, so provider credentials and lab/tool side effects cannot be triggered by the routing loop.
+
+For generated computational code, `run_approved_code(...)` is a thin adapter to the already verified shared science executor. It has no host-Python fallback: on Windows it refuses execution, while in the prepared Ubuntu environment it delegates only to `Interpreter.run()`, which applies Codex review and a pinned Docker image with network disabled. It is therefore an execution boundary, not a convenience wrapper for arbitrary local code.
 
 ## Evidence and disclosure boundary
 

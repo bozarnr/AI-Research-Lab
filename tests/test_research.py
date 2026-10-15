@@ -1,11 +1,27 @@
 import unittest
 from pathlib import Path
+import os
 
 from ai_alpha_lab.demo import synthetic_panel
 from ai_alpha_lab.expressions import FormulaContract, FormulaError, evaluate_formula
 from ai_alpha_lab.loop import CandidateRecord, rejection_gallery, summarize_loop
 from ai_alpha_lab.research import PromotionGate, evaluate_candidate
-from ai_research_lab.router import EvidenceSnapshot, HypothesisCard, ResearchGate, discover_local_upstreams, route_research
+from ai_research_lab.router import (
+    ArtifactApproval,
+    EvidenceSnapshot,
+    ExperimentPlan,
+    HypothesisCard,
+    HypothesisCandidate,
+    ResearchArtifact,
+    ResearchGate,
+    ScientificClaim,
+    can_release_claim,
+    can_submit_experiment,
+    discover_local_upstreams,
+    pareto_hypotheses,
+    route_research,
+)
+from ai_research_lab.execution import run_approved_code, shared_executor_ready
 
 
 class FormulaSafetyTests(unittest.TestCase):
@@ -60,6 +76,68 @@ class FormulaSafetyTests(unittest.TestCase):
 
 
 class ScientificRoutingTests(unittest.TestCase):
+    def test_scientific_claim_requires_matching_independent_replication(self):
+        evidence = ResearchArtifact.create("evidence", {"paper_ids": ["W1"]})
+        experiment = ResearchArtifact.create("experiment", {"run": "a", "metric": 0.8})
+        replication = ResearchArtifact.create("replication", {"run": "b", "metric": 0.79})
+        claim = ScientificClaim(
+            statement="The representation-aware alternative preserved the anomaly under two controlled runs.",
+            evidence_sha256=evidence.sha256,
+            experiment_sha256=experiment.sha256,
+            replication_sha256=replication.sha256,
+            limitations=("This is a computational result, not a physical-lab validation.",),
+        )
+        approval = ArtifactApproval(claim.artifact().sha256, "reviewer")
+        self.assertTrue(can_release_claim(claim, approval, evidence=evidence, experiment=experiment, replication=replication))
+        wrong_replication = ResearchArtifact.create("replication", {"run": "c", "metric": 0.1})
+        self.assertFalse(can_release_claim(claim, approval, evidence=evidence, experiment=experiment, replication=wrong_replication))
+
+    def test_shared_executor_is_detected_but_windows_execution_is_denied(self):
+        self.assertTrue(shared_executor_ready())
+        if os.name != "posix":
+            with self.assertRaisesRegex(RuntimeError, "disabled on Windows"):
+                run_approved_code("print('not executed')", workspace=Path.cwd(), audit_root=Path.cwd())
+
+    def test_pareto_selection_discards_dominated_hypotheses(self):
+        candidates = (
+            HypothesisCandidate("balanced", 0.8, 0.6, 0.9, 3.0),
+            HypothesisCandidate("dominated", 0.7, 0.5, 0.8, 4.0),
+            HypothesisCandidate("high_novelty", 0.6, 0.95, 0.7, 2.0),
+        )
+        frontier = pareto_hypotheses(candidates)
+        self.assertEqual([item.candidate_id for item in frontier], ["balanced", "high_novelty"])
+
+    def test_experiment_approval_is_bound_to_exact_plan_and_inputs(self):
+        hypothesis = ResearchArtifact.create("hypothesis", {"claim": "regime-aware models preserve anomalies"})
+        evidence = ResearchArtifact.create("evidence", {"paper_ids": ["W1", "W2"], "query": "representation failure"})
+        plan = ExperimentPlan(
+            hypothesis_sha256=hypothesis.sha256,
+            evidence_sha256=evidence.sha256,
+            baselines=("pooled model", "noise-only control"),
+            primary_metric="held-out residual-cluster stability",
+            seeds=(7, 19, 31),
+            expected_pattern="The regime-aware model reduces structured residuals without merely improving aggregate fit.",
+            falsifier="Independent observations remove the residual cluster without the proposed representation.",
+        )
+        approval = ArtifactApproval(plan.artifact().sha256, "researcher")
+        self.assertTrue(can_submit_experiment(plan, approval, hypothesis=hypothesis, evidence=evidence))
+
+        changed_plan = ExperimentPlan(
+            hypothesis_sha256=hypothesis.sha256,
+            evidence_sha256=evidence.sha256,
+            baselines=("pooled model",),
+            primary_metric=plan.primary_metric,
+            seeds=plan.seeds,
+            expected_pattern=plan.expected_pattern,
+            falsifier=plan.falsifier,
+        )
+        self.assertFalse(can_submit_experiment(changed_plan, approval, hypothesis=hypothesis, evidence=evidence))
+
+    def test_repeated_random_seed_blocks_experiment_plan(self):
+        plan = ExperimentPlan("h", "e", ("baseline",), "metric", (3, 3), "pattern", "falsifier")
+        with self.assertRaises(ValueError):
+            plan.artifact()
+
     def test_local_upstream_discovery_is_non_invasive(self):
         integrations = discover_local_upstreams(Path(__file__).parent)
         self.assertEqual([item.name for item in integrations], ["Future-House Robin", "ToolUniverse"])

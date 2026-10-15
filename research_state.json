@@ -8,12 +8,16 @@
     "minimum literature evidence coverage",
     "direct-precursor novelty response",
     "mechanism, executable direction, prediction and falsifier completeness",
-    "independent replication route after computational experiments"
+    "Pareto selection over recorded evidence, novelty, falsifiability and cost",
+    "immutable artifact hashes and approval binding",
+    "isolated-experiment and independent-replication routes",
+    "independent replication route before scientific-claim review"
   ],
   "not_yet_claimed": [
     "autonomous physical-lab execution",
     "validated novel scientific discovery",
-    "execution of credentialed Robin or ToolUniverse services through this repository"
+    "execution of credentialed Robin or ToolUniverse services through this repository",
+    "a validated scientific discovery or physical-laboratory result"
   ],
   "next_conditions": [
     "Connect a reviewed local literature.db.",
