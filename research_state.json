@@ -1,22 +1,23 @@
 {
-  "project": "ai-alpha-research-lab",
-  "updated_at": "2026-07-30",
-  "claim_ceiling": "implemented",
-  "status": "closed_without_online_candidate_under_current_protocol",
-  "public_scope": "Clean-room educational implementation and compact research evidence only.",
-  "frozen_protocol": {
-    "signal_timing": "after close t",
-    "execution_timing": "next trading-day open",
-    "transaction_cost_bps": 30,
-    "independent_test_use": "promotion audit only"
-  },
-  "result": {
-    "final_candidate_count": 0,
-    "interpretation": "The validation system rejected unstable candidates; this is not a claim of tradable alpha."
-  },
-  "reopen_conditions": [
-    "Pre-register a new economic mechanism or tradable field.",
-    "Use data independent of all prior selection decisions.",
-    "Freeze the baseline, costs, universe, and promotion gate before search."
+  "project": "ai-research-lab",
+  "updated_at": "2026-10-16",
+  "claim_ceiling": "implemented evidence-to-routing prototype",
+  "status": "open_for_local_literature_routing",
+  "public_scope": "A tested local core that reads an existing literature database and returns evidence-gated next research steps.",
+  "implemented_gates": [
+    "minimum literature evidence coverage",
+    "direct-precursor novelty response",
+    "mechanism, executable direction, prediction and falsifier completeness",
+    "independent replication route after computational experiments"
+  ],
+  "not_yet_claimed": [
+    "autonomous physical-lab execution",
+    "validated novel scientific discovery",
+    "execution of credentialed Robin or ToolUniverse services through this repository"
+  ],
+  "next_conditions": [
+    "Connect a reviewed local literature.db.",
+    "Add a hypothesis card with a measurable prediction and falsifier.",
+    "Record computational experiments and independent replication outcomes before making scientific claims."
   ]
 }

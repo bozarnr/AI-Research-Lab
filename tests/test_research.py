@@ -1,9 +1,11 @@
 import unittest
+from pathlib import Path
 
 from ai_alpha_lab.demo import synthetic_panel
 from ai_alpha_lab.expressions import FormulaContract, FormulaError, evaluate_formula
 from ai_alpha_lab.loop import CandidateRecord, rejection_gallery, summarize_loop
 from ai_alpha_lab.research import PromotionGate, evaluate_candidate
+from ai_research_lab.router import EvidenceSnapshot, HypothesisCard, ResearchGate, discover_local_upstreams, route_research
 
 
 class FormulaSafetyTests(unittest.TestCase):
@@ -55,6 +57,37 @@ class FormulaSafetyTests(unittest.TestCase):
         self.assertEqual(summary.promoted_candidates, 1)
         self.assertEqual(summary.rejection_reasons, {"too costly": 2})
         self.assertEqual(gallery[0]["formula"], "rank(close)")
+
+
+class ScientificRoutingTests(unittest.TestCase):
+    def test_local_upstream_discovery_is_non_invasive(self):
+        integrations = discover_local_upstreams(Path(__file__).parent)
+        self.assertEqual([item.name for item in integrations], ["Future-House Robin", "ToolUniverse"])
+        self.assertTrue(all(not item.available for item in integrations))
+
+    def test_direct_precursor_requires_a_novelty_response(self):
+        decision = route_research(
+            EvidenceSnapshot(total_papers=12, direct_precursors=2, mechanism_evidence=4, strong_baselines=3),
+            hypothesis=None,
+            gate=ResearchGate(minimum_papers=8),
+        )
+        self.assertEqual(decision.stage, "novelty_review")
+        self.assertFalse(decision.ready_for_experiment)
+
+    def test_complete_hypothesis_can_enter_computational_experiment(self):
+        hypothesis = HypothesisCard(
+            mechanism="A coarse representation hides a latent regime that creates clustered residuals.",
+            executable_direction="Compare a pooled model with a regime-aware probabilistic program.",
+            predictions=("Residual clusters remain after controlling for measurement noise.",),
+            falsifiers=("Residual structure disappears under an independently collected measurement.",),
+            novelty_response="The candidate targets representation-failure detection rather than aggregate fit alone.",
+        )
+        decision = route_research(
+            EvidenceSnapshot(total_papers=12, direct_precursors=1, mechanism_evidence=4, strong_baselines=3),
+            hypothesis=hypothesis,
+        )
+        self.assertEqual(decision.stage, "computational_experiment")
+        self.assertTrue(decision.ready_for_experiment)
 
 
 if __name__ == "__main__":

@@ -1,19 +1,20 @@
 # Disclosure Boundary
 
-This repository shows an auditable AI-assisted alpha research loop without publishing the private parts of a real research book.
+This repository publishes an auditable AI-assisted scientific-research routing core. It does not publish a claim that an AI system has independently made a validated scientific discovery.
 
 ## Included
 
-- Synthetic panel generation, formula parsing, candidate evaluation, and rejection accounting.
-- Tiny sample candidate records that show the public research-log schema.
-- Claim ceilings for what the evidence supports and does not support.
+- Evidence summaries read from a user-supplied local SQLite literature store.
+- Deterministic gates for novelty review, hypothesis formalization, computational-experiment readiness and replication routing.
+- A small no-credential demonstration and regression tests.
+- Explicit references to optional upstream projects, without vendoring their code.
 
 ## Excluded
 
-- Complete alpha libraries, live candidate pools, production thresholds, execution code, and capital-allocation logic.
-- Raw research logs, vendor data, credentials, account metadata, and any non-public dataset.
-- Any claim that the demo formulas are tradable.
+- Private research notes, raw literature PDFs, API keys, paid-platform credentials and non-public datasets.
+- Physical-laboratory control, unreviewed model-generated hypotheses presented as discoveries, and scientific-performance claims.
+- Any assertion that an upstream project has been executed through this repository unless a reproducible run record is added.
 
-## Sample Data Rule
+## Legacy material
 
-Files under `sample_data/` are synthetic fixtures. They document format and validation behavior only.
+The earlier formula-alpha prototype and its synthetic fixtures remain for historical context. They demonstrate the general promotion-gate and rejection-accounting pattern only; they are not part of the current scientific-discovery claim.
