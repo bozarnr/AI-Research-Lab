@@ -1,0 +1,48 @@
+{
+  "artifact_version": 1,
+  "evidence_artifact": "representation-repair-evidence.json",
+  "selection_policy": "Run H1 first as a measurement-harness test. H2-H4 are pre-registered follow-ons and may not be described as supported until their own isolated experiment and replication pass.",
+  "hypotheses": [
+    {
+      "id": "H1-compression-under-revision",
+      "priority": 1,
+      "mechanism": "When evidence is compressed to aggregate fit summaries, information that distinguishes structural and latent causes is removed; a repair policy therefore defaults to lower-level parameter adjustment.",
+      "executable_direction": "Semi-synthetic residual cases with known measurement, parameter, structural and latent causes; compare a global-summary policy against a residual-signature policy.",
+      "prediction": "The compressed policy has lower repair-level accuracy and a higher under-revision rate, particularly for structural and latent causes, across fixed seeds 7, 19 and 31.",
+      "falsifier": "Compression preserves comparable repair accuracy and does not raise under-revision against the same cases and policies.",
+      "novelty_response": "The question is not whether model criticism detects mismatch, but whether evidence granularity changes the selected level of repair under known hidden causes.",
+      "pilot_record": "../reports/representation-repair-pilot-v1.json",
+      "status": "measurement-harness-complete; requires real-agent or public-data replication"
+    },
+    {
+      "id": "H2-residual-diagnostic-calibration",
+      "priority": 2,
+      "mechanism": "Residual signatures can diagnose a repair level only if policy confidence tracks its actual repair accuracy across heterogeneous cases.",
+      "executable_direction": "Add confidence scores and perturbed signatures; measure repair-level calibration, selective risk and abstention value.",
+      "prediction": "A policy that abstains below a calibrated confidence threshold reduces false repair commitments at a bounded coverage cost.",
+      "falsifier": "Selective abstention does not improve risk at matched coverage, or confidence is uncorrelated with repair correctness.",
+      "novelty_response": "Separates detection of model inadequacy from awareness of whether the proposed repair is justified.",
+      "status": "pre-registered-follow-on"
+    },
+    {
+      "id": "H3-cost-aware-repair-routing",
+      "priority": 3,
+      "mechanism": "The optimal response to a residual depends jointly on expected repair accuracy, expected information gain and repair cost; always escalating to the richest representation is inefficient.",
+      "executable_direction": "Assign predeclared costs to measurement collection, parameter recalibration, structural expansion and latent-variable measurement; compare fixed policies to a cost-aware route.",
+      "prediction": "A cost-aware policy matches or exceeds high-cost escalation on utility while spending less on cases whose signatures support cheaper repairs.",
+      "falsifier": "Cost-aware routing loses utility at the same budget or selects expensive repairs without accuracy benefit.",
+      "novelty_response": "Connects model criticism to a decision policy over repair levels rather than only a goodness-of-fit score.",
+      "status": "pre-registered-follow-on"
+    },
+    {
+      "id": "H4-held-out-regime-anomaly-preservation",
+      "priority": 4,
+      "mechanism": "A representation that absorbs anomalous groups into aggregate fit can look adequate in-distribution while failing to preserve the anomaly under a shifted regime.",
+      "executable_direction": "Train repair policies on one mixture proportion and evaluate identification plus held-out prediction under shifted proportions and unseen interactions.",
+      "prediction": "Correct-level repairs preserve anomaly recall and improve held-out-regime performance relative to aggregate-only optimization.",
+      "falsifier": "Aggregate-only optimization matches anomaly recall and held-out performance across predeclared shifts.",
+      "novelty_response": "Tests whether representation repair is tied to scientific anomaly preservation rather than average predictive fit alone.",
+      "status": "pre-registered-follow-on"
+    }
+  ]
+}

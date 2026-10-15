@@ -1,0 +1,70 @@
+{
+  "benchmark": "representation-repair-semi-synthetic-v1",
+  "seeds": [
+    7,
+    19,
+    31
+  ],
+  "hidden_causes": [
+    "measurement",
+    "parameter",
+    "structural",
+    "latent"
+  ],
+  "fixed_policies": {
+    "compressed": "global-error-only policy; always applies parameter repair",
+    "residual_diagnostic": "uses predictor, interaction and group residual signatures"
+  },
+  "runs": [
+    {
+      "seed": 7,
+      "compressed": {
+        "repair_accuracy": 0.25,
+        "under_revision_rate": 0.5,
+        "n_cases": 100
+      },
+      "residual_diagnostic": {
+        "repair_accuracy": 1.0,
+        "under_revision_rate": 0.0,
+        "n_cases": 100
+      }
+    },
+    {
+      "seed": 19,
+      "compressed": {
+        "repair_accuracy": 0.25,
+        "under_revision_rate": 0.5,
+        "n_cases": 100
+      },
+      "residual_diagnostic": {
+        "repair_accuracy": 1.0,
+        "under_revision_rate": 0.0,
+        "n_cases": 100
+      }
+    },
+    {
+      "seed": 31,
+      "compressed": {
+        "repair_accuracy": 0.25,
+        "under_revision_rate": 0.5,
+        "n_cases": 100
+      },
+      "residual_diagnostic": {
+        "repair_accuracy": 1.0,
+        "under_revision_rate": 0.0,
+        "n_cases": 100
+      }
+    }
+  ],
+  "average": {
+    "compressed": {
+      "repair_accuracy": 0.25,
+      "under_revision_rate": 0.5
+    },
+    "residual_diagnostic": {
+      "repair_accuracy": 1.0,
+      "under_revision_rate": 0.0
+    }
+  },
+  "interpretation_boundary": "This pilot validates only the measurement harness on constructed signatures. It does not establish that AI systems revise scientific representations correctly in real domains."
+}

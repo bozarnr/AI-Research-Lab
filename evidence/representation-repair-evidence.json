@@ -1,0 +1,99 @@
+{
+  "artifact_version": 1,
+  "scope": "representation repair and abstraction-sensitive anomaly diagnosis",
+  "source": {
+    "literature_database": "external local ai-auto-science-literature/literature.db",
+    "screening_record": "manual-screening.md",
+    "screening_scope": "metadata-and-abstract first pass plus manually retained direct threats",
+    "warning": "This is an evidence index, not a claim that every cited work has been fully reproduced or that the proposed contribution is novel."
+  },
+  "core_papers": [
+    {
+      "id": "shrager-langley-1990",
+      "role": "direct historical threat",
+      "title": "Computational Models of Scientific Discovery and Theory Formation",
+      "authors": "Jeff Shrager; Pat Langley",
+      "year": 1990,
+      "claim_supported": "Theory formation, revision and fault diagnosis have substantial historical precedent.",
+      "boundary": "Must be read in full before making a novelty claim about theory repair."
+    },
+    {
+      "id": "sparkes-2010",
+      "role": "autonomous science system baseline",
+      "title": "Towards Robot Scientists for autonomous scientific discovery",
+      "authors": "Andrew C. Sparkes; Wayne Aubrey; Emma Byrne; et al.",
+      "year": 2010,
+      "doi": "10.1186/1759-4499-2-1",
+      "claim_supported": "Closed-loop hypothesis, experiment, interpretation and provenance are established design requirements.",
+      "boundary": "Retrieved material does not establish a cross-level representation-repair policy."
+    },
+    {
+      "id": "ratmann-2009",
+      "role": "model-criticism baseline",
+      "title": "Model criticism based on likelihood-free inference, with an application to protein network evolution",
+      "authors": "Oliver Ratmann; Christophe Andrieu; Carsten Wiuf; et al.",
+      "year": 2009,
+      "doi": "10.1073/pnas.0807882106",
+      "claim_supported": "Model adequacy can be tested with model-data discrepancies.",
+      "boundary": "It is not by itself a policy for choosing measurement, parameter, structural or conceptual repair."
+    },
+    {
+      "id": "carota-1996",
+      "role": "formal diagnostic baseline",
+      "title": "Diagnostic Measures for Model Criticism",
+      "authors": "Cinzia Carota; Giovanni Parmigiani; Nicholas G. Polson",
+      "year": 1996,
+      "doi": "10.1080/01621459.1996.10476943",
+      "claim_supported": "Model criticism can value elaborated alternatives while retaining prediction and parameter inference.",
+      "boundary": "A comparison point for structural expansion, not evidence for full repair-level selection."
+    },
+    {
+      "id": "nascimento-2020",
+      "role": "scientific-model inadequacy baseline",
+      "title": "Estimating model inadequacy in ordinary differential equations with physics-informed neural networks",
+      "authors": "Felipe Viana; Renato G. Nascimento; Arinan Dourado",
+      "year": 2020,
+      "doi": "10.1016/j.compstruc.2020.106458",
+      "claim_supported": "Scientific models can be augmented with discrepancy or inadequacy estimation.",
+      "boundary": "Requires a structural-repair comparator in the eventual benchmark."
+    },
+    {
+      "id": "wnek-michalski-1994",
+      "role": "constructive-induction baseline",
+      "title": "Hypothesis-Driven Constructive Induction in AQ17-HCI: A Method and Experiments",
+      "authors": "Janusz Wnek; Ryszard S. Michalski",
+      "year": 1994,
+      "doi": "10.1023/A:1022622132310",
+      "claim_supported": "Feature and predicate construction have a precedent as a representation-expansion strategy.",
+      "boundary": "Does not demonstrate when representation expansion is the appropriate repair."
+    },
+    {
+      "id": "boiko-2023",
+      "role": "modern AI-scientist system baseline",
+      "title": "Autonomous chemical research with large language models",
+      "authors": "Daniil A. Boiko; Robert MacKnight; Ben Kline; Gabe Gomes",
+      "year": 2023,
+      "doi": "10.1038/s41586-023-06792-0",
+      "claim_supported": "LLM-driven planning and laboratory/tool interaction can be organized into a constrained scientific workflow.",
+      "boundary": "Does not establish the representation-repair diagnosis evaluated here."
+    },
+    {
+      "id": "kusne-2020",
+      "role": "active-design baseline",
+      "title": "On-the-fly closed-loop materials discovery via Bayesian active learning",
+      "authors": "A. G. Kusne; T. F. Han; et al.",
+      "year": 2020,
+      "doi": "10.1038/s41467-020-19597-w",
+      "claim_supported": "Closed-loop experimental design can allocate experiments using uncertainty and utility.",
+      "boundary": "Optimizes experiment selection rather than choosing a level of representation repair."
+    }
+  ],
+  "provisional_contribution": "Given persistent residuals with different hidden causes, evaluate whether a scientific agent selects the correct repair level, and whether compression of residual evidence systematically increases under-revision.",
+  "required_outcomes": [
+    "repair-level accuracy",
+    "under-revision and over-revision rate",
+    "repair cost",
+    "held-out-regime predictive performance",
+    "independent replication of the computational result"
+  ]
+}

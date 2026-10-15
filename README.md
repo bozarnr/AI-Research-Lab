@@ -1,6 +1,12 @@
 # AI Research Lab
 
+<p align="center">
+  <img src="assets/ai-research-lab-icon.png" width="220" alt="AI Research Lab：证据、路由与发现的图标">
+</p>
+
 An auditable routing core for AI-assisted scientific research. The project treats a research idea as a sequence of evidence-gated decisions, not as a prompt that should automatically become an experiment or a paper.
+
+> **Current pilot:** Does compression of residual evidence cause a research policy to choose too shallow a model repair? The repository contains the evidence artifact, four pre-registered hypothesis cards and a deterministic semi-synthetic pilot. See the [Chinese project guide](docs/PROJECT_GUIDE.md).
 
 ## Current capability
 
@@ -19,10 +25,13 @@ The router does **not** claim to discover new science by itself. It blocks a can
 python -m pip install -e .
 python -m ai_research_lab.demo
 python -m ai_research_lab.demo --literature-db "C:\path\to\ai-auto-science-literature\literature.db"
+python -m ai_research_lab.repair_benchmark --output reports\representation-repair-pilot-v2.json
 python -m unittest discover -s tests -v
 ```
 
 The no-argument invocation is deterministic and needs no credential. The second invocation attaches the router to the existing literature database created by the project's OpenAlex collector.
+
+The benchmark command runs a fixed, semi-synthetic measurement harness; it is intentionally not a claim of scientific discovery. It refuses to overwrite an existing result file.
 
 ## Research method
 
@@ -60,6 +69,8 @@ For generated computational code, `run_approved_code(...)` is a thin adapter to 
 The repository contains an earlier, finance-focused prototype under `src/ai_alpha_lab/`, plus its associated synthetic fixtures and rejection reports. They are retained as historical evidence for the promotion-gate pattern; they are not evidence for scientific-discovery results.
 
 The current public claim is limited to an implemented, tested evidence-to-routing core and locally configured upstream source checkouts. It does not include private data, API keys, paid-platform access, physical-lab execution, or claims of a validated scientific discovery. See [DISCLOSURE.md](DISCLOSURE.md) and [research_state.json](research_state.json).
+
+The current research inputs are available as [formal evidence](evidence/representation-repair-evidence.json), [four hypothesis cards](evidence/representation-repair-hypotheses.json), and the [first pilot record](reports/representation-repair-pilot-v1.json). They state their own scope and non-claims.
 
 ## Layout
 

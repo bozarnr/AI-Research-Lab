@@ -22,6 +22,7 @@
   "next_conditions": [
     "Connect a reviewed local literature.db.",
     "Add a hypothesis card with a measurable prediction and falsifier.",
+    "Move the representation-repair pilot from constructed signatures to a real public dataset or controlled scientific simulator.",
     "Record computational experiments and independent replication outcomes before making scientific claims."
   ]
 }

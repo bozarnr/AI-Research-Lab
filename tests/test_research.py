@@ -22,6 +22,7 @@ from ai_research_lab.router import (
     route_research,
 )
 from ai_research_lab.execution import run_approved_code, shared_executor_ready
+from ai_research_lab.repair_benchmark import run_pilot
 
 
 class FormulaSafetyTests(unittest.TestCase):
@@ -76,6 +77,13 @@ class FormulaSafetyTests(unittest.TestCase):
 
 
 class ScientificRoutingTests(unittest.TestCase):
+    def test_representation_repair_pilot_is_deterministic_and_reports_boundary(self):
+        result = run_pilot()
+        self.assertEqual(result["seeds"], [7, 19, 31])
+        self.assertEqual(result["average"]["compressed"]["repair_accuracy"], 0.25)
+        self.assertEqual(result["average"]["residual_diagnostic"]["under_revision_rate"], 0.0)
+        self.assertIn("does not establish", result["interpretation_boundary"])
+
     def test_scientific_claim_requires_matching_independent_replication(self):
         evidence = ResearchArtifact.create("evidence", {"paper_ids": ["W1"]})
         experiment = ResearchArtifact.create("experiment", {"run": "a", "metric": 0.8})
